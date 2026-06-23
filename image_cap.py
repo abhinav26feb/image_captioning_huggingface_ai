@@ -1,4 +1,6 @@
 import requests
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
 from PIL import Image
 from transformers import AutoProcessor, BlipForConditionalGeneration
 
@@ -14,8 +16,21 @@ model = BlipForConditionalGeneration.from_pretrained(
 
 print("Model loaded!")
 
+# Hide the main Tkinter window
+Tk().withdraw()
+
+# Open file selection dialog
+img_path = askopenfilename(
+    title="Select an Image",
+    filetypes=[
+        ("Image Files", "*.jpg *.jpeg *.png *.bmp *.webp"),
+        ("All Files", "*.*")
+    ]
+)
+
+
 # Load your image, DON'T FORGET TO WRITE YOUR IMAGE NAME
-img_path = "./images.jpg"# convert it into an RGB format
+# img_path = "./images.jpg"# convert it into an RGB format
 image = Image.open(img_path).convert('RGB')
 
 # You do not need a question for image captioning
